@@ -179,6 +179,61 @@ public final void privateInitialize(String serviceName, CordovaInterface cordova
 - **매칭은 자동 폴더 스캔이 아니다.** config.xml `<feature>`와 cordova_plugins.js에 등록돼 있어야 한다. 이 프로젝트는 build.sh가 빌드 때 주입하므로, **원본 plugins/ 만 고치고 빌드 안 하면 반영 안 됨.**
 - `cordova` 필드는 **플러그인이 처음 호출될 때** 채워진다(lazy). 생성자에서 `cordova`를 쓰면 아직 null일 수 있다.
 
+## 보충 — 두 번 헷갈린 지점 (다시 물어본 것들)
+
+### (1) "verifySignature가 미사용"이라는 말의 정확한 범위
+이름이 같은 `verifySignature`가 **2개**라 혼동하기 쉽다.
+
+| 함수 | 정체 | 사용 |
+|------|------|------|
+| `IntegrityChecker.verifySignature(context)` (Checker.java:75) | 해시 비교 **로직(두뇌)** | ✅ 사용됨 — `getIntegrityInfo`가 Plugin.java:47에서 호출 |
+| `IntegrityPlugin.verifySignature(context, callbackContext)` (Plugin.java:68) | JS용 **배달부(액션 핸들러)** | ❌ 미사용 — JS가 이 액션을 안 부름 |
+
+- "안 쓰인다"고 한 건 **후자(Plugin의 verifySignature, line 68)**다.
+- JS 흐름은 `AppIntegrity.getIntegrityInfo()` 액션만 부르고(`AppIntegrity.verifySignature()`는 안 부름), 그 getIntegrityInfo가 내부에서 **두뇌(Checker.verifySignature)를 직접** 호출한다.
+- 그래서 구조는 **로직 1개(Checker) + 그걸 JS에 노출하는 배달부 2개(getIntegrityInfo ✅, verifySignature ❌)**. 두뇌는 당연히 쓰이고, 배달부 하나가 놀고 있는 것.
+
+### (2) context는 언제/누가 넣어주나 + 해시 탈락까지 전체 플로우
+**`cordova` 필드와 `context`는 다른 것**이고 시점도 다르다.
+- `cordova` 필드 → **프레임워크가** 플러그인 최초 호출 시 `privateInitialize`에서 주입 (Plugin.java:54)
+- `context` → 프레임워크가 직접 안 줌. **우리가** `execute()` 안에서 `cordova` 필드로부터 꺼내 헬퍼에 인자로 전달 (IntegrityPlugin.java:23)
+
+```
+[앱 실행 / deviceready]  (JS)
+   AppIntegrity.getIntegrityInfo(cb)
+      → cordova.exec(cb, err, "IntegrityPlugin", "getIntegrityInfo", [])
+   ───────── JS세계 → Java세계 (다리) ─────────
+   PluginManager.exec("IntegrityPlugin", ...)
+      ├ getPlugin("IntegrityPlugin")
+      │    └(최초 1회) 인스턴스 생성 + privateInitialize(...)
+      │         └ ★ this.cordova = cordova        ← [cordova 필드 주입 시점]
+      ▼
+   plugin.execute("getIntegrityInfo", args, callbackContext)
+      │  // execute() 안:
+      │  Context context = cordova.getActivity().getApplicationContext();
+      │         └ ★ [context를 cordova 필드로부터 꺼냄]
+      ▼
+   getIntegrityInfo(context, callbackContext)     ← ★ [우리가 context를 인자로 전달]
+      ▼
+   IntegrityChecker.verifySignature(context)      ← 두뇌 (위 (1)의 ✅)
+      ├ getAppSignatureHash(context)
+      │    └ context.getPackageManager()로 현재 APK 서명 추출 → SHA-256
+      │       = "현재 해시" (debug: c13b3a8d... / 실시간 계산)
+      ▼
+   return EXPECTED_SIGNATURE_HASH.equals(currentHash)
+      └ "하드코딩 해시" = IntegrityChecker.java:17 = 8B717936...
+      └ debug: 8B7179... ≠ c13b3a8d... → false    ← [탈락 지점]
+      ▼
+   callbackContext.success({isValid:false, ...})  ── 번호표 들고 JS로 복귀
+      ▼
+   JS: if(!info.isValid) → onFailure → exitApp()  ← [debug 앱 종료]
+```
+
+핵심 3줄:
+1. `context`는 프레임워크가 따로 주입하는 게 아니라, `execute()` 안에서 **우리가 `cordova` 필드로부터 꺼내** 헬퍼에 인자로 넘긴다. (`cordova` 필드만 프레임워크가 주입)
+2. 그 `context`로 OS에서 **현재 서명 해시(debug=c13b3a8d…)**를 실시간 계산한다.
+3. **하드코딩 해시(8B7179…, IntegrityChecker.java:17)**와 다르면 `false` → debug는 여기서 탈락 → JS가 그 false를 보고 앱 종료.
+
 ## 관련
 - 발단이 된 이슈: [[2026-06-02-integrity-check-blocks-debug-inspect]] (debug 빌드 무결성 검사가 chrome://inspect 디버깅을 막던 건)
 - 실제 코드 위치:
@@ -190,4 +245,4 @@ public final void privateInitialize(String serviceName, CordovaInterface cordova
 
 ---
 - 생성일: 2026-06-02
-- 마지막 갱신: 2026-06-02
+- 마지막 갱신: 2026-06-02 (보충: verifySignature 2개 구분 / context 주입 시점 + 해시 탈락 플로우)
