@@ -1,0 +1,1 @@
+../../vegasAppLite-app/2026-06-02-debug-native-integrity-check.md
