@@ -234,8 +234,20 @@ public final void privateInitialize(String serviceName, CordovaInterface cordova
 2. 그 `context`로 OS에서 **현재 서명 해시(debug=c13b3a8d…)**를 실시간 계산한다.
 3. **하드코딩 해시(8B7179…, IntegrityChecker.java:17)**와 다르면 `false` → debug는 여기서 탈락 → JS가 그 false를 보고 앱 종료.
 
+## 질문 기록
+> 원칙 8. (스킬 갱신으로 사후 추가)
+
+### 내가 던진 질문 (원문)
+- "해당 자바 코드는 그 native?라고 하는건가 os 에서 제공하는 함수인건가? 아니며 우리가 만든건가,,, 흐음 그리고 이거 다이어그램으로 요청 흐름이 어떻게 되는거지 어디에 요청을 보내는거고 어디서 요청을 하는거고 무결성 검사는 어디에서 하는거고, 어떻게 걸리는거고,,,흐음"
+- "1. 아니 그러면 이 앱이 뜰 떄는 java engine 이 같이 뜨는거야>? 그럼 엄청 무거운거아닌가,,? 2. 그리고 cordova.exec (JS→Java 다리)라고 하는데 이 부분을 보다 자세히 설명해줬으면 좋겠어 3. AppIntegrity 는 js 에서 java 를 호출하는데 이게 잘 모르겠는데,, 어케 가능한거임..? 2번의 연장선이잖아 잘 설명해줘봐 4. java 에서는 private boolean getIntegrityInfo(Context context, CallbackContext callbackContext) { 와 같이 받고 있는데 혹시, context 는 누가 보내주고 그 인자들은 어떻게 아는건지 모르겠네? 5. callbackContext.success(result); 이 함수의 정체는 뭐야 ... 어떻게 함수 밖에서 info.isValid 를 할 수 있는거야 ? 주소를 전달하는 과정인가? ... verifyWithServer ... if (response.verified === false) 여기서 걸린 거 같다 ... test 일 경우는 넘기도록 하는게 좋아보이는데 어떻게 생각하니,,"
+- "1. cordova.exec 에서는 현재 코드에서는 어떻게 구현되어 있는지 예시를 실제 코드를 보여주면 하 ㄹ수 있나. 2. JS의 AppIntegrity가 어떻게 Java를 호출하나? ... 파일 규칙을 자동으로 읽는거야? 어떻게 이게 매칭되는지 보다 자세히 알고 싶은데 3. cordova는 부모 CordovaPlugin이 들고 있는 필드예요 ... 이 부분이 너무 이해가 안되는데 보다 자세히,,, 설명해줘 cordova 처음 보는 사람도 이해할 수 잇을 정도,"
+- "1. 왜 verifySignature를 또 따로 만들었나? 에서 getIntegrityInfo를 쓰니까 지금은 사실상 미사용라고 해쓴ㄴ데 getIntegrityInfo 안에서 boolean isValid = IntegrityChecker.verifySignature(context); 이 줄 이 있으니까 ... 근데 왜 안쓴다고 하는거녀ㅑ,ㅡㅡ,,,,,, 2. ... context 는 언제 넣어준다고 햇었지? 그 플로우 다이어그램이랑 같이 넣어줄래 ... 그 전 히스토리 맥락도 잇었으면 좋겠어"
+
+### Claude가 되물은 확인 질문 + 답
+- (개념 설명 위주라 별도의 예/아니오 확인 질문은 없었음. 매 답변 끝에 "학습 노트로 남길까요 / 우회 수정을 적용할까요?"를 제안했고, 사용자는 이후 "일단 우회 수정을 하자"로 진행)
+
 ## 관련
-- 발단이 된 이슈: [[2026-06-02-integrity-check-blocks-debug-inspect]] (debug 빌드 무결성 검사가 chrome://inspect 디버깅을 막던 건)
+- 발단이 된 이슈: [[2026-06-02-debug-integrity-blocks-chrome-inspect]] (debug 빌드 무결성 검사가 chrome://inspect 디버깅을 막던 건)
 - 실제 코드 위치:
   - JS exec: `platforms/android/app/src/main/assets/www/cordova.js:933`
   - 다리 진입점: `CordovaLib/.../engine/SystemExposedJsApi.java:39`
@@ -245,4 +257,4 @@ public final void privateInitialize(String serviceName, CordovaInterface cordova
 
 ---
 - 생성일: 2026-06-02
-- 마지막 갱신: 2026-06-02 (보충: verifySignature 2개 구분 / context 주입 시점 + 해시 탈락 플로우)
+- 마지막 갱신: 2026-06-02 (보충: verifySignature 2개 구분 / context 주입 시점 + 해시 탈락 플로우 / 질문 기록 항목 추가)
