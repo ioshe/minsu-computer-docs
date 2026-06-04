@@ -53,7 +53,7 @@ byte[] digest = MessageDigest.getInstance("SHA-256").digest(sig.toByteArray()); 
 - (이 주제에서 별도 확인 질문 없음 — 직접 keytool/apksigner로 값을 계산해 답함)
 
 ## 관련
-- 발단이 된 이슈: [[2026-06-02-debug-integrity-blocks-chrome-inspect]], [[2026-06-02-install-failed-update-incompatible]]
+- 발단이 된 이슈: [[2026-06-02-debug-native-integrity-check]], [[2026-06-02-install-failed-update-incompatible]]
 - 연결 노트: [[2026-06-02-android-context-info]] (PackageManager로 꺼내는 정보), [[2026-06-02-client-integrity-check-limits]]
 - 참고 링크: keytool / apksigner (Android SDK build-tools)
 

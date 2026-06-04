@@ -42,7 +42,7 @@ if (info.isDebug) { onSuccess({ skipped: true, reason: 'debug_build' }); return;
 - Q: 지금 버전(BuildConfig.DEBUG 스킵)으로 빌드할까요, 아니면 강화 옵션을 반영할까요? / A: "일단 커밋" (현재 버전 유지 후 커밋)
 
 ## 관련
-- 발단이 된 이슈: [[2026-06-02-debug-integrity-blocks-chrome-inspect]]
+- 발단이 된 이슈: [[2026-06-02-debug-native-integrity-check]]
 - 연결 노트: [[2026-06-02-android-app-signing-cert-hash]], [[2026-06-02-chrome-inspect-webview-debugging]]
 - 참고 링크: Google Play Integrity API
 

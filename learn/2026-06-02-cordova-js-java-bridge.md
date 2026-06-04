@@ -247,7 +247,7 @@ public final void privateInitialize(String serviceName, CordovaInterface cordova
 - (개념 설명 위주라 별도의 예/아니오 확인 질문은 없었음. 매 답변 끝에 "학습 노트로 남길까요 / 우회 수정을 적용할까요?"를 제안했고, 사용자는 이후 "일단 우회 수정을 하자"로 진행)
 
 ## 관련
-- 발단이 된 이슈: [[2026-06-02-debug-integrity-blocks-chrome-inspect]] (debug 빌드 무결성 검사가 chrome://inspect 디버깅을 막던 건)
+- 발단이 된 이슈: [[2026-06-02-debug-native-integrity-check]] (debug 빌드 무결성 검사가 chrome://inspect 디버깅을 막던 건)
 - 실제 코드 위치:
   - JS exec: `platforms/android/app/src/main/assets/www/cordova.js:933`
   - 다리 진입점: `CordovaLib/.../engine/SystemExposedJsApi.java:39`

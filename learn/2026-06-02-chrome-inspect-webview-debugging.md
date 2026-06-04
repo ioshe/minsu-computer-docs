@@ -30,7 +30,7 @@ PC: chrome://inspect/#devices  →  기기/앱 WebView 타깃 → inspect
 ```
 
 ## 흔한 함정 / 헷갈리는 점
-- **debug 빌드인데 안 뜬다 → 보통 "앱이 떠 있지 않다".** 이번 프로젝트는 무결성 검사가 debug에서 실패해 `exitApp()`으로 앱이 즉시 종료 → 타깃이 잠깐 떴다 사라졌다. (→ [[2026-06-02-debug-integrity-blocks-chrome-inspect]])
+- **debug 빌드인데 안 뜬다 → 보통 "앱이 떠 있지 않다".** 이번 프로젝트는 무결성 검사가 debug에서 실패해 `exitApp()`으로 앱이 즉시 종료 → 타깃이 잠깐 떴다 사라졌다. (→ [[2026-06-02-debug-native-integrity-check]])
 - **release에서 디버깅하려고 무결성을 풀어도 소용없다.** release는 애초에 debuggable이 아니라 chrome://inspect에 안 뜬다. 디버깅하려면 debug 빌드가 필요.
 - 따라서 "디버깅하려면 debug 필요한데 debug는 무결성에서 죽는다"는 딜레마가 생긴다 → debug에서 무결성 스킵으로 해소.
 
@@ -44,7 +44,7 @@ PC: chrome://inspect/#devices  →  기기/앱 WebView 타깃 → inspect
 - (별도 확인 질문 없음 — CordovaLib 소스에서 조건을 확인해 답하고 build.sh도 함께 점검)
 
 ## 관련
-- 발단이 된 이슈: [[2026-06-02-debug-integrity-blocks-chrome-inspect]]
+- 발단이 된 이슈: [[2026-06-02-debug-native-integrity-check]]
 - 연결 노트: [[2026-06-02-android-context-info]] (FLAG_DEBUGGABLE은 ApplicationInfo.flags)
 - 참고 링크: WebView.setWebContentsDebuggingEnabled (Android), chrome://inspect
 

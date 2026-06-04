@@ -53,7 +53,7 @@ boolean debuggable = (context.getApplicationInfo().flags
 - (별도 확인 질문 없음)
 
 ## 관련
-- 발단이 된 이슈: [[2026-06-02-debug-integrity-blocks-chrome-inspect]]
+- 발단이 된 이슈: [[2026-06-02-debug-native-integrity-check]]
 - 연결 노트: [[2026-06-02-cordova-js-java-bridge]] (cordova 필드/context 주입), [[2026-06-02-android-app-signing-cert-hash]], [[2026-06-02-chrome-inspect-webview-debugging]]
 
 ---

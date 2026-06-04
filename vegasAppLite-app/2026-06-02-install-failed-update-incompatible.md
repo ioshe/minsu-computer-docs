@@ -35,7 +35,7 @@ signatures do not match previously installed version; ignoring!]
 
 ## 5. 원인 분석
 - **확정 원인:** 동일 패키지의 기존 설치본과 새 APK의 **서명 인증서가 다름**. (release 키로 설치된 앱 위에 debug 키 APK 설치 시도)
-- 근거: 에러 문구 `signatures do not match previously installed version`. (서명 키가 debug/release로 갈리는 상세는 [[2026-06-02-debug-integrity-blocks-chrome-inspect]] 및 [[2026-06-02-android-app-signing-cert-hash]] 참고)
+- 근거: 에러 문구 `signatures do not match previously installed version`. (서명 키가 debug/release로 갈리는 상세는 [[2026-06-02-debug-native-integrity-check]] 및 [[2026-06-02-android-app-signing-cert-hash]] 참고)
 
 ## 6. 조치 내역
 - 임시 우회책(workaround): 기존 앱 삭제 후 재설치
@@ -49,7 +49,7 @@ signatures do not match previously installed version; ignoring!]
 
 ## 7. 최종 상태
 - 해결 여부: 해결 (원인·해결책 확정)
-- 남은 문제 / 추가 확인 필요: debug로 설치/디버깅하려는 본래 목적은 무결성 검사 문제로 이어짐 → [[2026-06-02-debug-integrity-blocks-chrome-inspect]]
+- 남은 문제 / 추가 확인 필요: debug로 설치/디버깅하려는 본래 목적은 무결성 검사 문제로 이어짐 → [[2026-06-02-debug-native-integrity-check]]
 
 ## 8. 학습 포인트
 - 핵심 개념: 안드로이드는 **앱 업데이트 시 서명 동일성**을 강제한다. debug 키와 release 키는 서로 다른 인증서라 상호 덮어쓰기가 안 된다.
