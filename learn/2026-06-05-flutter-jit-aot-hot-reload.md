@@ -75,6 +75,17 @@ flutter attach -d <기기id>        # 이미 실행 중인 debug 앱에 붙기
 | 속도 | 매우 빠름(~수백ms) | 느림(수 초) |
 | 안 먹는 변경 | `main`/전역 초기화·enum 등 → restart 필요 | 네이티브(android/ios) 변경 → 전체 재빌드 |
 
+### D. "저장하면 자동 반영" — 터미널 `flutter run` vs IDE(F5)
+| 실행 방식 | 파일 저장 시 자동 hot reload | 비고 |
+|---|---|---|
+| **터미널 `flutter run`** | ✗ (자동 안 됨) | 그 터미널에서 키 입력으로만: `r`=hot reload, `R`=hot restart, `q`=종료 |
+| **VS Code "Run and Debug"(F5)** | O | Dart 확장 기능. 기본값 `dart.flutterHotReloadOnSave: "manual"` → Ctrl+S 저장 시 reload |
+| **Android Studio Run** | O | IDE 플러그인이 파일 감시 |
+
+- 포인트: **"저장 = 자동 반영"은 IDE 확장 기능**이지 `flutter run` CLI 자체 기능이 아니다. 터미널 러너는 파일을 감시하지 않고 **키 입력만** 받는다.
+- 터미널로 띄웠는데 저장해도 안 바뀌면 → 정상. 그 터미널에 포커스 주고 `r` 을 누르면 된다.
+- VS Code 자동저장(`files.autoSave`)을 쓰면 트리거가 애매할 수 있어, **F5 디버그 실행 + Ctrl+S 수동저장** 조합이 가장 확실하다.
+
 ## 흔한 함정 / 헷갈리는 점
 - **"JIT = hot reload 자동"은 오해.** JIT는 필요조건, PC 연결(`flutter run/attach`)이 충분조건. 둘 다 있어야 함.
 - **컴파일 주체 착각.** hot reload의 재컴파일은 *기기*가 아니라 *PC*가 한다. 기기 VM은 받은 kernel을 주입만 한다.
@@ -87,9 +98,12 @@ flutter attach -d <기기id>        # 이미 실행 중인 debug 앱에 붙기
 - "이거 just in time으로 되는거는 어떻게 뭐 다른 설정이 따ㅓ로 있나?"
 - "jjit 컴파일을 하면 hot reload 가 되는거 아니었나"
 - "그러면 fluter run 을 안해도 된다는거지?"
+- "각각 다른 점을 보다 자세히? 비교표 있으면 좋겠구,,"
+- "근데 궁금한게 내가 파일 저장을 하면 자동으로 바뀐다고 한게 flutter run인거 같은데 잘 안되는거 같아 ,,,"
 
 ### Claude가 되물은 확인 질문 + 답
 - Q: "just in time"이 JIT 컴파일이 아니라 다른 걸(hot reload 즉시 반영 등) 가리킨 거면 말씀해 달라 / A: (별도 정정 없음 — JIT 맥락으로 이어서 질문)
+- Q: 지금 그 `flutter run` 터미널에서 `r`을 눌렀을 때는 반영이 되나요? / A: "ㅇㅇㅇ" (됨 → 터미널은 저장-자동reload 미지원, 키 입력 필요가 원인으로 확정)
 
 ## 관련
 - 발단이 된 이슈: [[2026-06-05-flutter-build-install-wireless-adb]]
@@ -98,4 +112,4 @@ flutter attach -d <기기id>        # 이미 실행 중인 debug 앱에 붙기
 
 ---
 - 생성일: 2026-06-05
-- 마지막 갱신: 2026-06-05 (상세 비교표 A/B/C 추가)
+- 마지막 갱신: 2026-06-05 (비교표 A/B/C + D: 터미널 run vs IDE F5 저장-자동reload 차이 추가)
