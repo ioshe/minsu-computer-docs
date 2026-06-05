@@ -30,9 +30,11 @@
 
 ## 세 가지 패턴 비교 (이 레포에 셋 다 공존)
 
+> 갱신(2026-06-05, directive 062 / commit `6d71a29`): 아래 "패턴 A" 로 분류했던 4개 서비스(status_board·consultation_progress·hot_key_tag·patient_search)는 **모두 패턴 C 로 리팩토링 완료**됐다. 그 과정에서 패턴 A 가 단순 중복이 아니라 **401 세션만료 자동 처리를 조용히 누락시키는 잠재 버그**였음이 드러났다 → 사건 기록: [[2026-06-05-dio-throwaway-interceptor-session-expiry]]. 아래 패턴 A 설명은 "왜 위험한지" 의 교보재로 남겨둔다.
+
 ```
-패턴 A) 두꺼운 서비스 — _authHeader() + _getDio()  ← 레거시/중복
-  hot_key_tag_service.dart, consultation_progress_service.dart
+패턴 A) 두꺼운 서비스 — _authHeader() + _getDio()  ← 레거시/중복(현재 이 레포에선 제거됨)
+  (수정 전) hot_key_tag_service.dart, consultation_progress_service.dart 등
 
   fetchTags()
     └ _getDio()  → ⚠️ 인터셉터 0개짜리 새 Dio 생성
@@ -104,7 +106,7 @@
 - Q: hot_key_tag / consultation_progress 도 patient_memo 처럼 인터셉터 위임 방식으로 리팩토링할까요? / A: ❓ 미답 (대신 "왜 올바른지"를 문서로 정리하라는 지시로 이어짐)
 
 ## 관련
-- 발단이 된 이슈: (별도 이슈 없음 — 코드 비교/이해 과정에서 파생)
+- 발단이 된 이슈: [[2026-06-05-dio-throwaway-interceptor-session-expiry]] (패턴 A 가 401 세션만료를 누락시키던 구조적 결함 → 패턴 C 로 수정)
 - 참고 코드:
   - `lib/core/network/api_client.dart` (`dioProvider`, `v2DioProvider`, `_buildV2Dio`)
   - `lib/core/network/auth_interceptor.dart` (`AuthInterceptor`)
@@ -114,4 +116,4 @@
 
 ---
 - 생성일: 2026-06-05
-- 마지막 갱신: 2026-06-05
+- 마지막 갱신: 2026-06-05 (directive 062 리팩토링 완료 + 잠재 버그 사건 링크 반영)
