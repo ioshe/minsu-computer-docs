@@ -39,6 +39,42 @@ flutter attach -d <기기id>        # 이미 실행 중인 debug 앱에 붙기
 | 아이콘 탭으로 debug APK 단독 실행 | O | ✗ (PC 미연결) |
 | release APK 실행 | ✗ (AOT) | ✗ (애초에 불가) |
 
+## 상세 비교표
+
+### A. 빌드 모드 3종 (debug / profile / release)
+| 항목 | debug | profile | release |
+|---|---|---|---|
+| 컴파일 | **JIT** | **AOT** | **AOT** |
+| 명령 | `flutter run`(기본)·`build apk --debug` | `--profile` | `--release` |
+| hot reload/restart | O | ✗ | ✗ |
+| assert 실행 | O | ✗ | ✗ |
+| 디버깅(중단점·step) | O | 제한적 | ✗ |
+| DevTools 성능측정 | △ 부정확 | **O 정확** | ✗ |
+| 디버그 배너 | O | ✗ | ✗ |
+| 실행 속도 | 느림 | 빠름(실기 수준) | **가장 빠름** |
+| 앱 크기 | 큼(~96MB) | 중간 | **작음** |
+| 최적화/난독화 | ✗ | O | O(`--obfuscate` 가능) |
+| VM Service | 열림 | 열림 | 닫힘 |
+| 용도 | 개발 | 성능 프로파일링 | 스토어 배포 |
+
+### B. JIT vs AOT 자체
+| 항목 | JIT (Just-In-Time) | AOT (Ahead-Of-Time) |
+|---|---|---|
+| 컴파일 시점 | 앱 **실행 중**(기기) | **빌드 시점**(PC, 미리) |
+| 산출물 | Dart kernel(.dill)+VM | 네이티브 ARM 기계어 |
+| 런타임 코드 교체 | 가능(→hot reload 토대) | 불가 |
+| 첫 실행/워밍업 | 느림 | 빠름 |
+| 해당 모드 | debug | profile, release |
+
+### C. hot reload vs hot restart (둘 다 debug 한정, 연결 상태 필요)
+| 항목 | hot reload (`r`) | hot restart (`R`) |
+|---|---|---|
+| 동작 | 바뀐 Dart 주입 → 위젯 rebuild | 앱 전체 재시작 |
+| 앱 상태(state) | **유지** | **초기화** |
+| `main()` 재실행 | ✗ | O |
+| 속도 | 매우 빠름(~수백ms) | 느림(수 초) |
+| 안 먹는 변경 | `main`/전역 초기화·enum 등 → restart 필요 | 네이티브(android/ios) 변경 → 전체 재빌드 |
+
 ## 흔한 함정 / 헷갈리는 점
 - **"JIT = hot reload 자동"은 오해.** JIT는 필요조건, PC 연결(`flutter run/attach`)이 충분조건. 둘 다 있어야 함.
 - **컴파일 주체 착각.** hot reload의 재컴파일은 *기기*가 아니라 *PC*가 한다. 기기 VM은 받은 kernel을 주입만 한다.
@@ -62,4 +98,4 @@ flutter attach -d <기기id>        # 이미 실행 중인 debug 앱에 붙기
 
 ---
 - 생성일: 2026-06-05
-- 마지막 갱신: 2026-06-05
+- 마지막 갱신: 2026-06-05 (상세 비교표 A/B/C 추가)
