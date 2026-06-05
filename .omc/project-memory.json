@@ -1,0 +1,75 @@
+{
+  "version": "1.0.0",
+  "lastScanned": 1780617754693,
+  "projectRoot": "/home/minsu/docs/dev-log",
+  "techStack": {
+    "languages": [],
+    "frameworks": [],
+    "packageManager": null,
+    "runtime": null
+  },
+  "build": {
+    "buildCommand": null,
+    "testCommand": null,
+    "lintCommand": null,
+    "devCommand": null,
+    "scripts": {}
+  },
+  "conventions": {
+    "namingStyle": null,
+    "importStyle": null,
+    "testPattern": null,
+    "fileOrganization": null
+  },
+  "structure": {
+    "isMonorepo": false,
+    "workspaces": [],
+    "mainDirectories": [],
+    "gitBranches": null
+  },
+  "customNotes": [],
+  "directoryMap": {
+    "hanchartAppLite-app": {
+      "path": "hanchartAppLite-app",
+      "purpose": null,
+      "fileCount": 1,
+      "lastAccessed": 1780617754690,
+      "keyFiles": [
+        "2026-06-04-buildconfig-not-generated.md"
+      ]
+    },
+    "learn": {
+      "path": "learn",
+      "purpose": null,
+      "fileCount": 7,
+      "lastAccessed": 1780617754690,
+      "keyFiles": [
+        "2026-06-02-android-app-signing-cert-hash.md",
+        "2026-06-02-android-context-info.md",
+        "2026-06-02-chrome-inspect-webview-debugging.md",
+        "2026-06-02-client-integrity-check-limits.md",
+        "2026-06-02-cordova-js-java-bridge.md"
+      ]
+    },
+    "months": {
+      "path": "months",
+      "purpose": null,
+      "fileCount": 0,
+      "lastAccessed": 1780617754690,
+      "keyFiles": []
+    },
+    "vegasAppLite-app": {
+      "path": "vegasAppLite-app",
+      "purpose": null,
+      "fileCount": 3,
+      "lastAccessed": 1780617754693,
+      "keyFiles": [
+        "2026-06-02-adb-no-devices.md",
+        "2026-06-02-debug-native-integrity-check.md",
+        "2026-06-02-install-failed-update-incompatible.md"
+      ]
+    }
+  },
+  "hotPaths": [],
+  "userDirectives": []
+}
