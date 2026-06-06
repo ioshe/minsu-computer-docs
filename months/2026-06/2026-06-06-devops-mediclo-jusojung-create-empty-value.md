@@ -1,0 +1,1 @@
+../../devops-mediclo/2026-06-06-jusojung-create-empty-value.md
