@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastScanned": 1780617754693,
+  "lastScanned": 1780910230045,
   "projectRoot": "/home/minsu/docs/dev-log",
   "techStack": {
     "languages": [],
@@ -29,11 +29,24 @@
   },
   "customNotes": [],
   "directoryMap": {
+    "devops-mediclo": {
+      "path": "devops-mediclo",
+      "purpose": null,
+      "fileCount": 11,
+      "lastAccessed": 1780910230036,
+      "keyFiles": [
+        "2026-06-05-dio-throwaway-interceptor-session-expiry.md",
+        "2026-06-05-flutter-build-install-wireless-adb.md",
+        "2026-06-05-riverpod-ref-after-widget-disposed.md",
+        "2026-06-06-consultation-patient-memo-통합.md",
+        "2026-06-06-develop-build-break-chart-detail-setoptions.md"
+      ]
+    },
     "hanchartAppLite-app": {
       "path": "hanchartAppLite-app",
       "purpose": null,
       "fileCount": 1,
-      "lastAccessed": 1780617754690,
+      "lastAccessed": 1780910230039,
       "keyFiles": [
         "2026-06-04-buildconfig-not-generated.md"
       ]
@@ -41,8 +54,8 @@
     "learn": {
       "path": "learn",
       "purpose": null,
-      "fileCount": 7,
-      "lastAccessed": 1780617754690,
+      "fileCount": 23,
+      "lastAccessed": 1780910230039,
       "keyFiles": [
         "2026-06-02-android-app-signing-cert-hash.md",
         "2026-06-02-android-context-info.md",
@@ -55,14 +68,14 @@
       "path": "months",
       "purpose": null,
       "fileCount": 0,
-      "lastAccessed": 1780617754690,
+      "lastAccessed": 1780910230039,
       "keyFiles": []
     },
     "vegasAppLite-app": {
       "path": "vegasAppLite-app",
       "purpose": null,
       "fileCount": 3,
-      "lastAccessed": 1780617754693,
+      "lastAccessed": 1780910230041,
       "keyFiles": [
         "2026-06-02-adb-no-devices.md",
         "2026-06-02-debug-native-integrity-check.md",
@@ -70,6 +83,25 @@
       ]
     }
   },
-  "hotPaths": [],
+  "hotPaths": [
+    {
+      "path": "README.md",
+      "accessCount": 4,
+      "lastAccessed": 1780929945339,
+      "type": "file"
+    },
+    {
+      "path": "months/2026-06/README.md",
+      "accessCount": 1,
+      "lastAccessed": 1780930131212,
+      "type": "file"
+    },
+    {
+      "path": "learn/2026-06-08-flutter-rendering-pipeline-skia-impeller.md",
+      "accessCount": 1,
+      "lastAccessed": 1780930499738,
+      "type": "file"
+    }
+  ],
   "userDirectives": []
 }
