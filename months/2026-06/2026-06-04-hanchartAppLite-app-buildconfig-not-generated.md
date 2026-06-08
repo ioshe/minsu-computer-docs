@@ -1,1 +1,0 @@
-../../hanchartAppLite-app/2026-06-04-buildconfig-not-generated.md

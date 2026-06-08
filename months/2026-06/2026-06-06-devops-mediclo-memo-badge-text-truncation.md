@@ -1,1 +1,0 @@
-../../devops-mediclo/2026-06-06-memo-badge-text-truncation.md

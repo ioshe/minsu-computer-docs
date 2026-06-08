@@ -1,1 +1,0 @@
-../../devops-mediclo/2026-06-06-consultation-patient-memo-통합.md

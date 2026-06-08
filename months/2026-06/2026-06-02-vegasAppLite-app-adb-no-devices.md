@@ -1,1 +1,0 @@
-../../vegasAppLite-app/2026-06-02-adb-no-devices.md
