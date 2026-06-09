@@ -14,6 +14,7 @@
 | 06-02 | [Cordova 하이브리드 앱의 이중 보안 가드 — 네이티브(Activity) vs WebView(JS)](./2026-06-02-cordova-native-vs-webview-integrity.md) |
 | 06-02 | [Cordova JS ↔ Java 브리지 동작 원리 (cordova.exec)](./2026-06-02-cordova-js-java-bridge.md) |
 | 06-02 | [chrome://inspect로 WebView 원격 디버깅이 뜨는 기준 (FLAG_DEBUGGABLE)](./2026-06-02-chrome-inspect-webview-debugging.md) |
+| 06-09 | [Play App Signing — 업로드 키 vs 앱 서명 키, 누가 무엇으로 서명하나](./2026-06-09-play-app-signing-upload-vs-app-signing-key.md) |
 
 ## 빌드 · 런타임 · 배포
 

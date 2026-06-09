@@ -18,3 +18,4 @@
 | 06-06 | `devops-mediclo` | [주소증 작성 시 NoSuchMethodError — interface/impl 시그니처 드리프트 + 작성자명 세션 연결](../../devops-mediclo/2026-06-06-patient-memo-author-name-signature-drift.md) |
 | 06-06 | `devops-mediclo` | [진료 작성 시트 텍스트 삽입(상용구 + 오늘 날짜) 프론트 구조 정리](../../devops-mediclo/2026-06-06-write-sheet-text-insertion.md) |
 | 06-08 | `devops-mediclo` | [progress-v2 상병·오더가 화면에서 통째로 사라진 silent 파싱 누락](../../devops-mediclo/2026-06-08-progress-v2-disease-order-silent-parse-loss.md) |
+| 06-09 | `hanchartAppLite-app` | [Play Store 배포 시에만 무결성 검사 실패 — Google 재서명으로 서명 해시가 바뀜](../../hanchartAppLite-app/2026-06-09-play-store-integrity-resign.md) |
