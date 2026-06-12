@@ -50,6 +50,7 @@
 | 06-06 | [Flutter — 커서(캐럿) 위치 텍스트 삽입 & 포커스 보정](./2026-06-06-flutter-cursor-text-insertion.md) |
 | 06-06 | [Flutter 고정폭 위젯에서 텍스트가 잘리는 두 원인 (한글 softWrap + 시스템 textScaler)](./2026-06-06-flutter-fixed-width-text-truncation.md) |
 | 06-06 | [Flutter 작성 시트 자동저장 패턴 — Mixin 템플릿메서드 + Debounce + 로컬 드래프트](./2026-06-06-flutter-autosave-sheet-mixin-debounce.md) |
+| 06-12 | [Flutter 바텀시트 "닫기 3경로(X·딤드·스와이프)" 저장 일원화 — PopupRoute beforeClose + WriteSheetFlushable](./2026-06-12-flutter-bottomsheet-close-paths-flush.md) |
 
 ## 네트워크 · API · 서비스 레이어
 
